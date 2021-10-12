@@ -16,21 +16,23 @@ Lexic:
 
 		- reserved words:
 
-    			array char const do if then else int string bool impl read write var while for as long with let void break return
+    			array char const do if then else int string bool impl read write var while for as long with let void break return programName
 
       b.identifiers
 
   		-a sequence of letters and  digits, such that the first character is a letter; the rule is:
 
-    			identifier ::= letter | letter{letter}{digit}
+    			identifier = letter | letter{letter}{digit}
 
-    			letter ::= "A" | "B" | . ..| "Z" | "a" | "b" | . ..| "z"
+    			letter = "A" | "B" | . ..| "Z" | "a" | "b" | . ..| "z"
 			
-			zero ::= "0"
+			zero = "0"
 	
-			nonZeroDigit ::= "1" |...| "9"		
+			nonZeroDigit = "1" |...| "9"		
 
-			digit ::= zero | nonZeroDigit
+			digit = zero | nonZeroDigit
+
+			bool = "True" | "False"
 
 
       c.constants
@@ -38,21 +40,18 @@ Lexic:
 
 		1.integer - rule:
 
-      			noconst:="+"nonZeroDigit{number}|"-"nonZeroDigit{number}|number
+      			noconst=["+"|"-"] nonZeroDigit{digit} | zero
 
-      			number:=zero | nonZeroDigit{number}
+		2.string
 
-		2.character
+      			constchar="\""string"\""
 
-    			character:='letter'|'digit'|''
-
-		3.string
-
-      			constchar:="string"
-
-      			string:=char{string}
+      			string=char{string}
 			
-			char:=letter|digit|""
+			char=letter|digit
+
+		3.bool
+			constbool="True" | "False"
 
 
 
@@ -105,53 +104,53 @@ let
 void 
 break 
 return
-
+programName
 
 
 3.Syntax.in:
 
 The words - predefined tokens are specified between " and ":
 
-program ::= programName ".impl" "{" decllist ";" cmpdstmt "." "}"
+program = programName ".impl" "{" decllist ";" cmpdstmt "." "}"
 
-decllist ::=  declaration | "{" declaration ";" decllist "}"                
+decllist =  declaration {";"} | "{" declaration ";" decllist "}"                
 
-declaration ::= "let" type IDENTIFIER                                     
+declaration = "let" type IDENTIFIER                                  
 
-type1 ::= "bool" | "char" | "int" | "string"                               
+type1 = "bool" | "int" | "string"                               
 
-arraydecl ::= type1 "array" "[" nr "]"                               
+arraydecl = type1 "array" "[" nr "]"                               
 
-type  ::= type1|arraydecl                                                  
+type  = type1|arraydecl                                                  
 
-cmpdstmt ::= "{" stmtlist "}"                                              
+cmpdstmt = "{" stmtlist "}"                                              
 
-stmtlist ::= stmt | stmt ";" stmtlist                                      
+stmtlist = stmt | stmt ";" stmtlist                                      
 
-stmt ::= simplstmt | structstmt                                            
+stmt = simplstmt | structstmt                                            
 
-simplstmt ::= assignstmt | iostmt                                          
+simplstmt = assignstmt | iostmt                                          
 
-assignstmt ::= IDENTIFIER "=" expression                                   
+assignstmt = IDENTIFIER "=" expression                                   
 
-expression ::= expression OPERATOR term | term                             
+expression = expression ("+"|"-"|"||") term | term                             
 
-term ::= term "*" factor | factor                                          
+term = term ("*"|"&&"|"/"|"%") factor | factor                                          
 
-factor ::= "(" expression ")" | IDENTIFIER                                 
+factor = "(" expression ")" | IDENTIFIER                                 
 
-iostmt ::= "READ" "(" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")"          
+iostmt = "READ" "(" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")"          
 
-structstmt ::= cmpdstmt | ifstmt | whilestmt | forstmt                                
+structstmt = cmpdstmt | ifstmt | whilestmt | forstmt                                
 
-ifstmt ::= "IF" condition "THEN" stmt ["ELSE" stmt]                        
+ifstmt = "IF" condition "THEN" stmt ["ELSE" cmpdstmt]                        
 
-whilestmt ::= "WHILE" condition "DO" stmt      
+whilestmt = "WHILE" condition "DO" cmpdstmt      
 
-forstmt ::= "FOR" assignstmt "AS LONG AS" condition "WITH" assignstmt "DO"                           
+forstmt = "FOR" assignstmt "AS LONG AS" condition "WITH" assignstmt "DO" cmpdstmt                          
 
-condition ::= expression RELATION expression | expression RELATION expression && condition                               
+condition = expression RELATION expression | expression RELATION expression && condition                               
 
-RELATION ::= "<" | "<=" | "==" | "!=" | ">=" | ">"  
+RELATION = "<" | "<=" | "==" | "!=" | ">=" | ">"  
 
-logicalop::="&&" | "||"                       
+logicalop="&&" | "||"                       
