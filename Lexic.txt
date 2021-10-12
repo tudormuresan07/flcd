@@ -1,0 +1,157 @@
+Alphabet:
+
+	a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+
+       b. Underline character "_";
+
+
+       c. Decimal digits (0-9);
+
+Lexic:
+
+      a.Special symbols, representing:
+
+		- operators + - * / % = < <= == >= > != && || ++
+
+		- separators [ ] { } , : ; space $$
+
+		- reserved words:
+
+    			array char const do if then else int string bool impl read write var while for as long with let void break return programName
+
+      b.identifiers
+
+  		-a sequence of letters and  digits, such that the first character is a letter; the rule is:
+
+    			identifier = letter | letter{letter}{digit}
+
+    			letter = "A" | "B" | . ..| "Z" | "a" | "b" | . ..| "z"
+			
+			zero = "0"
+	
+			nonZeroDigit = "1" |...| "9"		
+
+			digit = zero | nonZeroDigit
+
+			bool = "True" | "False"
+
+
+      c.constants
+		-declared using 'const' keyword
+
+		1.integer - rule:
+
+      			noconst=["+"|"-"] nonZeroDigit{digit} | zero
+
+		2.string
+
+      			constchar="\""string"\""
+
+      			string=char{string}
+			
+			char=letter|digit
+
+		3.bool
+			constbool="True" | "False"
+
+
+
+
+2.Token.in:
++ 
+- 
+* 
+/ 
+% 
+= 
+< 
+<= 
+== 
+>= 
+> 
+!=
+&& 
+|| 
+$$
+++
+[ 
+] 
+{ 
+} 
+, 
+: 
+; 
+space
+array 
+char 
+const 
+do 
+if 
+then 
+else 
+int 
+string 
+bool 
+impl 
+read 
+write 
+var 
+while 
+for 
+as 
+long 
+with 
+let 
+void 
+break 
+return
+programName
+
+
+3.Syntax.in:
+
+The words - predefined tokens are specified between " and ":
+
+program = programName ".impl" "{" decllist ";" cmpdstmt "." "}"
+
+decllist =  declaration {";"} | "{" declaration ";" decllist "}"                
+
+declaration = "let" type IDENTIFIER                                  
+
+type1 = "bool" | "int" | "string"                               
+
+arraydecl = type1 "array" "[" nr "]"                               
+
+type  = type1|arraydecl                                                  
+
+cmpdstmt = "{" stmtlist "}"                                              
+
+stmtlist = stmt | stmt ";" stmtlist                                      
+
+stmt = simplstmt | structstmt                                            
+
+simplstmt = assignstmt | iostmt                                          
+
+assignstmt = IDENTIFIER "=" expression                                   
+
+expression = expression ("+"|"-"|"||") term | term                             
+
+term = term ("*"|"&&"|"/"|"%") factor | factor                                          
+
+factor = "(" expression ")" | IDENTIFIER                                 
+
+iostmt = "READ" "(" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")"          
+
+structstmt = cmpdstmt | ifstmt | whilestmt | forstmt                                
+
+ifstmt = "IF" condition "THEN" stmt ["ELSE" cmpdstmt]                        
+
+whilestmt = "WHILE" condition "DO" cmpdstmt      
+
+forstmt = "FOR" assignstmt "AS LONG AS" condition "WITH" assignstmt "DO" cmpdstmt                          
+
+condition = expression RELATION expression | expression RELATION expression && condition                               
+
+RELATION = "<" | "<=" | "==" | "!=" | ">=" | ">"  
+
+logicalop="&&" | "||"                       
