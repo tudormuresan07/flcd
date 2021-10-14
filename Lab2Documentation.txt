@@ -1,0 +1,20 @@
+https://github.com/tudormuresan07/flcd
+
+For this lab, the solution is on branch called lab2
+
+Implemented 1b,2c. Used a BST structure, ordered alphabetically, which contains:
+
+Node that has:
+	-value(String)->the name of the identifier
+	-2 nodes, the left and the right subnode, that can be null
+	-index(int)-> the position of the identifier in symbol table
+
+BST:
+	-retains the root node
+	-has the following methods:
+		1. searchValue-> is looking for a given identifier name and, if found,
+returns its index, or -1 otherwise
+		2. increaseIndex-> increases by 1 all indexes of a binary search tree
+having as root a node
+		3. insert-> performs an insert operation of an identifier name in the BST
+if it is not already in the BST and returns the position/index of that name
