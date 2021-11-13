@@ -1,0 +1,6 @@
+Github: https://github.com/tudormuresan07/flcd
+This assignment is on branch called Lab3
+
+The program takes a given file and parses the code from that file based on previously defined language.
+For each step, it displays how the current atom is stored in symbol table and PIF.
+If the program contains lexical errors, those will be printed  as well.

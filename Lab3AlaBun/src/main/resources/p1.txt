@@ -1,0 +1,25 @@
+p1.impl
+$$max of 3 nr
+{
+$$variable declaration
+let int a;
+let int b;
+let int c;
+let int maximum;
+$$reading the numbers
+read(a);
+read(b);
+read(c);
+$$computing the maximum
+if a<b then
+if b<c then
+maximum=c;
+else
+maximum=b;
+else
+if a<c then
+maximum=c;
+else
+maximum=a;
+write(maximum);
+}

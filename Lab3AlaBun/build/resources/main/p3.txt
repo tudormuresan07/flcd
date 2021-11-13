@@ -1,0 +1,15 @@
+p3.impl
+$$sum of n numbers
+{
+let int sum=0;
+let int nr;
+let int len;
+let int i;
+read(len);
+for i=0 as long as i<len with i=i+1 do
+{
+read(nr);
+sum=sum+nr;
+}
+write(sum);
+}

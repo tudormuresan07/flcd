@@ -1,0 +1,20 @@
+p2.impl
+$$check if a number is prime
+{
+let int n;
+let int d;
+read(n);
+if n<=3 then
+if n<=1
+write(False);
+else
+write(True);
+else
+{
+let bool ok=True;
+for d=2 as long as d*d<=n and ok==True with d=d+1 do
+if n%d==0 then
+ok=False;
+write(ok);
+}
+}
