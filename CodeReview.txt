@@ -1,0 +1,8 @@
+Code review for https://github.com/PamfilCatalin/formal-languages/tree/master/lab5-week8
+
+Observations:
+-the parser output is written only in console, not in a file
+-too many blank spaces
+-commented code left there instead of being deleted
+
+Overall, the code does its job and it is very well written. 
